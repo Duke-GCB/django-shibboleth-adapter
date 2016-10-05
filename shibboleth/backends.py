@@ -47,7 +47,7 @@ class ShibbolethRemoteUserBackend(RemoteUserBackend):
         for attribute in SHIB_ATTRIBUTE_LIST:
             try:
                 user.__setattr__(attribute["user_attribute"] ,meta[attribute["shibboleth_key"]])
-            except AttributeError as e:
+            except (AttributeError, KeyError) as e:
                 if attribute["required"]:
                     raise e
         user.set_unusable_password()
